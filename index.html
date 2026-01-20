@@ -1,0 +1,2640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supernotes</title>
+        <script>
+            // Prevent browsers from automatically restoring scroll position on reload
+            if ('scrollRestoration' in history) {
+                try { history.scrollRestoration = 'manual'; } catch (e) { /* ignore */ }
+            }
+        </script>
+    <style>
+        * {
+        
+            box-sizing: border-box;
+        }
+
+        body {
+            /* margin:0rem; */
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        html { scroll-behavior: smooth; }
+
+        /* Header */
+        header {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            align-items: center;
+            padding: 18px 4rem;
+            background: transparent;
+            position: sticky;
+            top: 0;
+            z-index: 9999;
+            /* keep subtle backdrop if browser supports it */
+            -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(6px);
+        }
+
+        .logo {
+            height: 28px;
+        }
+
+        .logo img {
+            height: 100%;
+            width: auto;
+        }
+
+        nav {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            justify-self: center; /* center nav in header grid */
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .get-in-touch {
+            background: #ff6b35;
+            color: white;
+            border: none;
+            padding: 8px 24px;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(255,107,53,0.18);
+            transition: transform 160ms ease, box-shadow 160ms ease;
+            text-decoration: none;
+        }
+
+        /* ensure get-in-touch sits on the right when in header grid */
+        header > .get-in-touch { justify-self: end; }
+
+        .get-in-touch:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 36px rgba(255,107,53,0.22);
+            text-decoration: none;
+        }
+
+        .get-in-touch:focus {
+            outline: 3px solid rgba(255,107,53,0.18);
+            outline-offset: 3px;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-left: 1.5rem;
+            margin-right: -0.4rem;
+            position: relative;
+            padding: 30px 80px;
+            min-height: 640px;
+            background-image: url('images/banner-background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+        }
+
+        .hero-container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 60px;
+        }
+
+        .hero-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-left-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .hero-left-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .cta-btn {
+            /* margin-left: -7rem; */
+            background: #ff6b35;
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-decoration: none; /* remove underline for anchor links */
+            display: inline-flex; /* ensure anchor can be centered like a button */
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-arrow {
+            height: 23px;
+            width: auto;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+        .hero-right {
+            flex: 1.2;
+            display: flex;
+            justify-content: start;
+            align-items: center;
+        }
+
+        .hero-right-image {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            border-radius: 20px;
+        }
+
+        .hero-right-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+
+        
+        /* Star Runner Section */
+        .star-runner {
+            background: white;
+            padding: 36px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .star-track {
+            display: flex;
+            width: max-content;
+            animation: scroll 20s linear infinite;
+        }
+
+        .star-track img {
+            height: 27px;
+            margin: 0 7px;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+
+        /* 4-1 Tool Kit Section */
+.toolkit-section {
+    padding: 7px 80px;
+    background: #F2F6FF;
+}
+
+@media (max-width: 768px) {
+    .toolkit-section {
+        padding: 40px 20px;
+    }
+    .toolkit-header {
+        padding: 0 16px;
+        margin-bottom: 30px;
+    }
+    .toolkit-title br {
+        display: none;
+    }
+    .toolkit-title {
+        line-height: 1.3;
+        font-size: 2.1rem !important;
+        text-align: center;
+    }
+    .toolkit-subtitle {
+        color: #666;
+        font-size: 16px;
+        max-width: 100% !important;
+        margin-bottom: 20px;
+    }
+    
+    /* Hide the toolkit content (accordion/features) on mobile */
+    .toolkit-content {
+        display: none !important;
+    }
+    
+    /* Mobile video styling */
+    .toolkit-mobile-video {
+        display: block !important;
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto 30px;
+        background: transparent;
+        border-radius: 20px;
+        overflow: hidden;
+    }
+    
+    .toolkit-mobile-video video {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 20px;
+    }
+    
+    .toolkit-mobile-video .play-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80px;
+        height: 80px;
+        background: rgba(82, 82, 82, 0.9);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+    }
+    
+    .toolkit-mobile-video .play-button:hover {
+        background: rgba(82, 82, 82, 1);
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    
+    .toolkit-mobile-video .play-button::after {
+        content: '▶';
+        color: white;
+        font-size: 28px;
+        margin-left: 5px;
+    }
+    
+    .toolkit-cta {
+        text-align: center;
+    }
+
+}
+
+.toolkit-header {
+    text-align: center;
+
+}
+
+.toolkit-badge {
+    display: inline-block;
+
+}
+
+.toolkit-badge img {
+    height: 70px;
+}
+
+.toolkit-title {
+    margin-bottom: 0.2rem;
+    margin-top: -1.5rem;
+    font-size: 42px;
+}
+
+.toolkit-title .orange-text {
+    color: #ff6b35;
+    font-style: italic;
+}
+
+.toolkit-subtitle {
+    color: #666;
+    font-size: 16px;
+    max-width: 60%;
+    margin: 0 auto;
+}
+
+.services-subtitle {
+    color: #666;
+    font-size: 16px;
+    max-width: 40%;
+    margin: 0 auto;
+}
+        .toolkit-content {
+
+    display: flex;
+    gap: 60px;
+    align-items: center; /* vertically center the video */
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+        .toolkit-video {
+            justify-items: end;
+            /* margin-left: 5rem; */
+    flex: 1;
+    max-width: 720px;
+    position: sticky; /* keep video visually stable when right column height changes */
+    top: 120px;
+    align-self: flex-center;
+}
+
+        .video-container {
+            width: 80%;
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+}
+
+        .video-container iframe,
+        .video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+}
+
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: #ff6b35;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 12px 30px rgba(255,107,53,0.18);
+}
+
+.play-button::after {
+    content: '▶';
+    color: white;
+    font-size: 30px;
+    margin-left: 5px;
+}
+
+
+
+        .toolkit-features {
+    flex: 1;
+}
+
+        /* Hide mobile video containers on desktop */
+        .toolkit-item-video {
+            display: none;
+        }
+
+        .toolkit-item {
+    padding: 10px 0;
+    position: relative;
+}
+
+        .toolkit-item::after {
+    content: '';
+    display: block;
+    height: 1px;
+    background: #d8dbe6;
+    width: 80%;
+    margin-top: 28px;
+    opacity: 0.9;
+}
+
+        .toolkit-item-title {
+    font-size: 2.2rem; /* smaller title size per request */
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* keep text left, arrow right */
+    width: 100%;
+    background: transparent;
+    border: none;
+    text-align: left;
+    padding: 6px 0;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 700;
+    color: #0f1720;
+}
+
+        .toolkit-arrow-wrap{display:flex; justify-content:flex-end;}
+        .toolkit-arrow {
+    height: 4rem;
+    width: auto;
+    transition: none; /* keep arrow static */
+}
+
+        .toolkit-body {
+            margin-right: 13rem;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    color: #666;
+    font-size: 15px;
+    line-height: 1.6;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+    padding: 0;
+}
+
+        .toolkit-item-description {
+    flex: 1 1 auto;
+}
+
+        .toolkit-item.active .toolkit-body {
+            margin-right: 13rem;
+    max-height: 400px;
+    padding-top: 15px;
+}
+
+        /* no rotation: arrow stays static when expanded */
+
+        /* video play overlay */
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: #525252;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 5;
+            box-shadow: 0 14px 36px rgba(255,107,53,0.18);
+}
+
+        .play-button::after {
+    content: '▶';
+    color: white;
+    font-size: 36px;
+    margin-left: 5px;
+}
+
+.toolkit-cta {
+    margin-bottom: 2rem;
+    text-align: center;
+    margin-top: 50px;
+}
+
+        /* User request: hide side titles/descriptions and make promo video look better
+           Apply only on desktop so mobile layout is unchanged */
+        @media (min-width: 769px) {
+            .toolkit-section .toolkit-features,
+            .toolkit-section .toolkit-cta,
+            .toolkit-section .toolkit-mobile-video {
+                display: none !important;
+            }
+
+            .toolkit-section {
+                padding: 0 !important;
+                background: #F2F6FF !important;
+            }
+
+      
+
+            .toolkit-section .toolkit-video {
+                position: relative !important;
+                top: auto !important;
+                max-width: none !important;
+                width: 100% !important;
+                align-self: stretch !important;
+                padding: 24px 0 !important;
+                display: flex !important;
+                justify-content: center !important;
+            }
+
+            .toolkit-section .video-container {
+                width: 80% !important;
+                position: relative !important;
+                padding-bottom: 45% !important; /* reduced height */
+                border-radius: 20px !important;
+                overflow: hidden !important;
+                margin: 24px auto !important;
+                box-shadow: 0 14px 40px rgba(15,23,42,0.08) !important;
+                background: #000 !important;
+            }
+
+            .toolkit-section .video-container video,
+            .toolkit-section .video-container iframe {
+                position: absolute !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: contain !important;
+                background: #000 !important;
+            }
+        }
+
+@media (max-width: 768px) {
+    .toolkit-content {
+        flex-direction: column;
+    }
+    
+    .toolkit-video {
+        max-width: 100%;
+        position: static; /* disable sticky on small screens */
+    }
+    
+    .explore-section {
+        padding: 0.7rem !important;
+    }
+    
+    /* Horizontal scrollable cards on mobile */
+    .resources-grid {
+        display: flex;
+        grid-template-columns: unset;
+        gap: 16px;
+        margin-top: 20px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        padding-bottom: 8px;
+    }
+    
+    .resources-grid::-webkit-scrollbar {
+        height: 6px;
+    }
+    
+    .resources-grid::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+    
+    .resources-grid::-webkit-scrollbar-thumb {
+        background: #ff6b35;
+        border-radius: 10px;
+    }
+    
+    .resource-card {
+        flex: 0 0 70%;
+        min-width: 280px;
+    }
+}
+        /* Why Section */
+        .why-section {
+            padding: 80px 80px;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 60px;
+        }
+
+        .section-title .highlight {
+            color: #ff6b35;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 20px;
+            align-items: start;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: #f5f5f5;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .feature-content h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .feature-content p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Explore Digital Section */
+        .explore-section {
+            padding: 40px 170px;
+            background: #ffffff;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+            grid-auto-rows: 1fr; /* make each card row equal height so CTAs align */
+        }
+
+        .resource-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 6px 24px rgba(15,23,42,0.08);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .resource-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .resource-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto;
+        }
+
+        .resource-desc { 
+            margin-bottom: 1rem;
+            color: #666; font-size: 14px; }
+
+        .resource-btn {
+            display: inline-block;
+            background: #ff6b35;
+            color: white;
+            padding: 5px 14px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            width: fit-content;
+            margin-top: auto; /* push to bottom of card so buttons align */
+            transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+            cursor: pointer;
+        }
+
+        .resource-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(15,23,42,0.12);
+            background-color: #ff7b4a;
+        }
+
+        .resource-btn:focus {
+            outline: 3px solid rgba(255,107,53,0.16);
+            outline-offset: 4px;
+            box-shadow: 0 12px 24px rgba(15,23,42,0.12);
+        }
+
+        .resource-tag {
+            background: #ffe5d9;
+            color: #ff6b35;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 12px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .resource-title {
+            font-size: 16px;
+            margin: 0%;
+        }
+
+        /* Choosing Section Styles */
+        .choosing-section {
+            padding: 20px 125px;
+            background: white;
+        }
+
+        .choosing-container {
+            justify-content: center;
+            display: flex;
+            gap: 80px;
+            max-width: 1200px;
+            margin: 40px auto 0 auto;
+            align-items: center;
+        }
+
+        .choosing-left {
+            max-width: 38%;
+            flex: 1;
+        }
+
+        .choosing-image {
+            margin-top: 1rem;
+            width: 100%;
+            max-width: 520px;
+            border-radius: 20px;
+            display: block;
+            box-shadow: 0 12px 40px rgba(15,23,42,0.08);
+        }
+
+        .choosing-right {
+            max-width: 44%;
+            flex: 1;
+            padding-left: 20px;
+        }
+
+        .choosing-list { display:flex; flex-direction: column; gap: 20px; }
+
+        .choosing-item {
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+            background: transparent;
+        }
+
+        .choosing-icon {
+            width: 62px;
+            height: 62px;
+            /* background: white; */
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .choosing-icon img { 
+            width: auto; height: 10rem; }
+
+        .choosing-text h4 { margin: 0 0 6px 0; font-size: 18px; }
+        .choosing-text p { margin: 0; color: #666; font-size: 14px; }
+
+        @media (max-width: 992px) {
+            .choosing-container { flex-direction: column; align-items: center; }
+            .choosing-right { padding-left: 0; }
+            .choosing-image { max-width: 100%; }
+        }
+
+        /* Services Section */
+        .services-section {
+            padding: 20px 100px;
+            background: white;
+        }
+
+        .services-container {
+            margin-top: 0rem;
+            padding-left: 5rem;
+            padding-right: 5rem;
+            padding-top: 0rem;                   
+            background-image: url('images/sb.png');
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;        
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+            /* fade top & bottom edges for a soft overlay effect */
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+        }
+
+        .service-list {
+            flex: 1 1 280px;
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .service-item {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+        }
+
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 14px;
+            /* background: white; */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+              flex-shrink: 0;
+        }
+
+        .service-text h4 {
+            margin: 0 0 6px 0;
+            font-size: 16px;
+        }
+
+        .service-text p {
+            margin: 0;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .service-center {
+            flex: 0 0 420px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+
+        .service-center img {
+            width: 420px;
+            max-width: 100%;
+            border-radius: 20px;        
+        }
+
+        .services-cta {
+            text-align: center;
+           
+        }
+
+        @media (max-width: 992px) {
+            .services-container { flex-direction: column; padding: 28px; }
+            .service-center { order: 2; }
+        }
+
+        /* Articles Section */
+        .articles-section {
+            padding: 80px 80px;
+            background: white;
+        }
+
+        .articles-container {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .articles-image {
+            flex: 1;
+            max-width: 400px;
+        }
+
+        .articles-image img {
+            width: 100%;
+            border-radius: 20px;
+        }
+
+        .articles-content {
+            flex: 1;
+        }
+
+        .articles-list {
+            margin-top: 30px;
+        }
+
+        .article-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .article-icon {
+            width: 40px;
+            height: 40px;
+            background: #e3f2fd;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Testimonials (horizontal scroll) */
+        .testimonials-section {
+      
+            padding: 20px 80px;
+
+        }
+
+        .testimonials-track-wrap {
+            position: relative;
+            margin-top: 40px;
+        }
+
+        .testimonials-track {
+                margin-left: -5.5rem;
+    margin-right: -5.5rem;
+    padding-top: 1.5rem;
+    display: flex;
+    gap: 30px;
+    overflow-x: auto;
+    overflow-y: visible;
+    flex-wrap: nowrap;
+    padding-bottom: 4rem;
+    scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .testimonials-track::-webkit-scrollbar{ display:none }
+
+        .testimonial-card {
+            flex: 0 0 28rem;
+            background: white;
+            padding: 36px;
+            border-radius: 18px;
+            box-shadow: 0 18px 50px rgba(15,23,42,0.08);
+            scroll-snap-align: start;
+            position: relative;
+            min-height: 260px;
+            display: flex;
+            flex-direction: column;
+            z-index: 1; /* ensure card and its shadow render above the scroll gutter */
+        }
+
+        /* add spacing so first/last cards don't stick to the edges */
+        /* .testimonials-track .testimonial-card:first-child { margin-left: 20px; }
+        .testimonials-track .testimonial-card:last-child { margin-right: 20px; } */
+
+        .testimonial-card .stars { font-size: 1.5rem; color: #ff7b24; margin-bottom: 18px; }
+        .testimonial-text { flex: 1 1 auto; margin-bottom: 18px; line-height: 1.7; color:#333 }
+
+        .testimonial-meta { display:flex; align-items:center; justify-content:space-between; }
+        .testimonial-author { display:flex; gap:12px; align-items:center }
+        .author-logo { width:56px; height:56px; border-radius:50%; background:#ff6b35; display:flex; align-items:center; justify-content:center; font-weight:700; color:#fff; font-size:18px }
+
+        .testimonials-controls{ position:absolute; right:0rem; bottom:0rem; display:flex; gap:12px }
+        .testimonials-controls button{ width:36px; height:36px; border-radius:50%; border:1px solid rgba(0,0,0,0.06); background:white; cursor:pointer }
+
+        @media (max-width: 900px){ .testimonial-card{ flex:0 0 85%; } .testimonials-controls{ bottom:0rem } }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 80px;
+            background: white;
+            text-align: center;
+        }
+
+        .cta-boxes {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .cta-box {
+            background: #f8f9fa;
+            padding: 60px 40px;
+            border-radius: 20px;
+            min-width: 250px;
+        }
+
+        .cta-box-icon {
+            width: 60px;
+            height: 60px;
+            background: #d4edda;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a2e;
+            color: white;
+            padding: 40px 80px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero-container {
+                flex-direction: column;
+                padding: 40px 20px;
+            }
+
+            .hero-left-image,
+            .hero-right-image {
+                max-width: 100%;
+            }
+
+            .resources-grid {
+                display: flex;
+                grid-template-columns: unset;
+                gap: 16px;
+                overflow-x: auto;
+                overflow-y: hidden;
+                -webkit-overflow-scrolling: touch;
+                scroll-behavior: smooth;
+            }
+            
+            .resource-card {
+                flex: 0 0 85%;
+                min-width: 280px;
+            }
+
+            .testimonials-track {
+                padding-left: 16px;
+            }
+
+            header { 
+                display:flex; 
+                justify-content:space-between; 
+                padding: 14px 18px;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.95);
+                z-index: 9999;
+            }
+            nav { gap: 14px; }
+            
+            /* Add padding to body to compensate for fixed header */
+            body {
+                padding-top: 60px;
+            }
+            
+            /* Testimonials section mobile padding */
+            .testimonials-section {
+                padding: 20px 16px;
+            }
+            
+            .testimonials-track {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+            
+            
+            /* Choosing section mobile padding */
+            .choosing-section {
+                padding: 20px 16px;
+            }
+            
+            .choosing-container {
+                flex-direction: column;
+                gap: 24px;
+            }
+            
+            .choosing-left,
+            .choosing-right {
+                max-width: 100% !important;
+                width: 100%;
+            }
+            
+            /* Services section mobile padding */
+            .services-section {
+                        margin-right: 2rem;
+        margin-left: 2rem;
+                padding: 0rem;
+            }
+            
+            .services-container {
+                display: flex !important;
+                flex-direction: column;
+                padding: 0 !important;
+                gap: 20px;
+                background-image: none !important;
+                -webkit-mask-image: none !important;
+                mask-image: none !important;
+            }
+            
+            .service-center {
+                order: 2;
+                width: 100%;
+            }
+            
+            .service-center img {
+                width: 100%;
+                height: auto;
+            }
+            
+            .service-list {
+                flex: 1 1 22px !important;
+                width: 100%;
+                padding: 0 !important;
+                /* Remove fading effect */
+                -webkit-mask-image: none;
+                mask-image: none;
+            }
+            
+            .service-list:first-of-type {
+                order: 3;
+            }
+            
+            .service-list:last-of-type {
+                order: 4;
+            }
+            
+            .service-item {
+                display: flex;
+                gap: 12px;
+                /* margin-bottom: 16px; */
+                align-items: flex-start;
+            }
+            
+            .service-icon {
+          
+        height: 7rem;
+                flex: 0 0 5rem;
+              
+               
+            }
+            
+            .service-icon img {
+             
+                height: 11rem !important;
+            }
+            
+            .service-text {
+                flex: 1;
+            }
+            
+            .service-text h4 {
+                        font-size: 1.4rem;
+                font-weight: 600;
+                margin: 0 0 6px 0;
+            }
+            
+            .service-text p {
+                        font-size: 1rem;
+                margin: 0;
+                color: #666;
+                line-height: 1.4;
+            }
+            
+            .services-cta {
+                order: 5;
+                text-align: center;
+                margin-top: 20px;
+            }
+            
+            .services-subtitle {
+                max-width: 100% !important;
+            }
+            
+            /* Contact section mobile padding */
+            .contact-section {
+                padding: 20px 16px !important;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .contact-title {
+                font-size: 28px !important;
+            }
+
+        }
+
+        /* Mobile hero adjustments: remove left margin and normalize padding */
+        @media (max-width: 768px) {
+            .hero {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                padding: 1rem;
+                min-height: auto;
+                background-position: top center;
+            }
+            .hero-container { padding: 0; gap: 30px; }
+        }
+
+        /* Menu button + mobile CTA defaults */
+        .menu-button { display: none; flex-direction: column; gap: 6px; }
+        .menu-button .bar { display: block; width: 28px; height: 3px; background: #111; margin: 0; border-radius: 2px; transition: transform 200ms ease, opacity 200ms ease; }
+        .get-in-touch-mobile { display: none; }
+
+        /* Popup Form Styles */
+        @media(max-width:767px){ #customPopupOverlay{ height:100dvh !important; } }
+
+        #customPopupOverlay{
+          display:none;
+          position:fixed !important;
+          inset:0;
+          width:100vw;
+          height:100vh;
+          background:rgba(0,0,0,0.75);
+          backdrop-filter:blur(4px);
+          padding:16px;
+          box-sizing:border-box;
+          z-index:2147483646;
+          justify-content:center;
+          align-items:center;
+          overflow-y:auto;
+        }
+
+        #customPopupBox{
+          width:100%;
+          max-width:700px;
+          background:#fff;
+          border-radius:12px;
+          border:2px solid #000;
+          padding:32px;
+          box-shadow:0 30px 90px rgba(0,0,0,0.3), 
+                     0 15px 40px rgba(0,0,0,0.22), 
+                     0 5px 15px rgba(0,0,0,0.15);
+          box-sizing:border-box;
+          position:relative;
+          margin:auto;
+          transform:none !important;
+          z-index:2147483647;
+          font-family:Poppins, sans-serif;
+        }
+
+        #closePopup{
+          position:absolute;
+          right:16px;
+          top:16px;
+          width:36px;
+          height:36px;
+          font-size:28px;
+          line-height:1;
+          border:2px solid #333;
+          border-radius:50%;
+          background:#fff;
+          cursor:pointer;
+          color:#333;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          transition:all 0.3s ease;
+          font-weight:300;
+          -webkit-tap-highlight-color: transparent;
+        }
+
+        #closePopup:hover{
+          background:#333;
+          color:#fff;
+          transform:rotate(90deg);
+          border-color:#000;
+        }
+
+        #closePopup:focus{
+          outline:none;
+        }
+        
+        #closePopup:focus-visible{
+          outline:2px solid #ff6b35;
+          outline-offset:2px;
+        }
+
+        .customForm label{ display:block; margin-top:10px; font-weight:600; font-size:14px; }
+        .customForm label::after{ content: attr(data-required); color: #ff0000; }
+        .customForm input, .customForm textarea{
+          width:100%; padding:10px; margin-top:6px; border-radius:8px; border:1px solid #ccc; box-sizing:border-box;
+        }
+        .customForm button{ width:100%; padding:12px; margin-top:16px; border-radius:8px; border:0; background:#000; color:#fff; font-weight:600; cursor:pointer; }
+
+        .elementor-element.openPopup, .elementor-element.openPopup a,
+        .elementor-widget-container, .elementor-widget-button {
+          pointer-events: auto !important;
+        }
+
+        #loader{
+          display:none;
+          position:fixed; inset:0;
+          background:rgba(255,255,255,0.9);
+          z-index:2147483648;
+          justify-content:center; align-items:center; font-size:20px; font-weight:600;
+        }
+
+        @media (max-width: 768px) {
+            .menu-button { display: inline-flex; flex-direction: column; align-items: center; justify-content: center; background: transparent; border: none; padding: 6px; gap: 6px; cursor: pointer; margin-left: auto; }
+            /* Nav hidden by default on mobile; toggled by JS */
+            nav.mobile-hidden { display: none; }
+            /* Right-aligned panel that opens from the top-right (near the hamburger) */
+            nav.mobile-open { 
+                position: absolute;
+                top: 60px;
+                right: 12px;
+                left: auto;
+                width: 220px;
+                background: white;
+                border-radius: 10px;
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                box-shadow: 0 10px 30px rgba(16,24,40,0.12);
+                z-index: 9998;
+                text-align: left;
+            }
+            /* make each link a full-row tap target */
+            nav.mobile-open a {
+                display: block;
+                width: 100%;
+                padding: 12px 10px;
+                border-radius: 8px;
+                color: #111;
+                text-decoration: none;
+            }
+            nav.mobile-open a:hover { background: rgba(16,24,40,0.04); }
+            /* Hide desktop CTA and style mobile CTA inside menu */
+            .get-in-touch { display: none; }
+            .get-in-touch-mobile {
+                display: block;
+                background: #ff6b35;
+                color: #fff !important;
+                padding: 10px 14px;
+                border-radius: 20px;
+                text-align: center;
+                box-shadow: 0 8px 20px rgba(255,107,53,0.14);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="images/logo.png" alt="udayni logo">
+        </div>
+        <button class="menu-button" aria-label="Toggle menu" aria-expanded="false">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <nav id="main-nav" class="mobile-hidden">
+            <a href="#home">Home</a>
+            <a href="#explore">Courses</a>
+            <a href="#services">Services</a>
+            <!-- mobile-only copy of the CTA so it appears inside the hamburger menu -->
+            <a class="get-in-touch get-in-touch-mobile" href="https://wa.link/ad0vun">Get in touch</a>
+        </nav>
+        <a class="get-in-touch" href="https://wa.link/ad0vun">Get in touch</a>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-container">
+            <div class="hero-left">
+                <div class="hero-left-image">
+                    <img src="images/mb1.png" alt="Hero Left">
+                </div>
+                <a class="cta-btn openPopup" href="javascript:void(0)">
+                    Get Supernotes Complimentary 
+                    <img src="images/arrow.png" alt="arrow" class="btn-arrow">
+                </a>
+            </div>
+            
+            <div class="hero-right">
+                <div class="hero-right-image">
+                    <img src="images/mb2.png" alt="Hero Right">
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Star Runner Section -->
+    <section class="star-runner">
+        <div class="star-track">
+            <img src="images/supernotes-star.png" alt="Star">
+            <img src="images/supernotes-star.png" alt="Star">
+            <img src="images/supernotes-star.png" alt="Star">
+            <img src="images/supernotes-star.png" alt="Star">
+            <img src="images/supernotes-star.png" alt="Star">
+            <img src="images/supernotes-star.png" alt="Star">
+            <img src="images/supernotes-star.png" alt="Star">
+            <img src="images/supernotes-star.png" alt="Star">
+            <img src="images/supernotes-star.png" alt="Star">
+            <img src="images/supernotes-star.png" alt="Star">
+            <!-- Duplicate for seamless loop -->
+            <img src="images/supernotes-star.png" alt="Star">
+            <img src="images/supernotes-star.png" alt="Star">
+            <img src="images/supernotes-star.png" alt="Star">
+            <img src="images/supernotes-star.png" alt="Star">
+            <img src="images/supernotes-star.png" alt="Star">
+            <img src="images/supernotes-star.png" alt="Star">
+            <img src="images/supernotes-star.png" alt="Star">
+            <img src="images/supernotes-star.png" alt="Star">
+            <img src="images/supernotes-star.png" alt="Star">
+            <img src="images/supernotes-star.png" alt="Star">
+        </div>
+    </section>
+
+
+
+
+    <!-- 4-1 Tool Kit Section -->
+    <section class="toolkit-section">
+        <div class="toolkit-header">
+            <div class="toolkit-badge">
+                <img src="images/discount.png">
+            </div>
+            <h2 class="toolkit-title">
+                Why do we call it 4-1 one<br>
+                tool kit - <span class="orange-text">Whats included</span>
+            </h2>
+            <!-- <p class="toolkit-subtitle">
+                This book transforms even the toughest topics into quick, digestible Super Notes designed to 
+                improve memory retention, exam performance, and self-learning confidence.
+            </p> -->
+        </div>
+
+        <div class="toolkit-content">
+            <!-- Video Section -->
+            <div class="toolkit-video">
+                <div class="video-container">
+                    <!-- Single promo video (same as mobile) -->
+                    <video id="toolkitVideo" controls src="https://packages.supernotes.info/wp-content/uploads/2026/01/V4-Book-Promo.mp4" poster="images/promo.jpg"></video>
+                    <div class="play-button" id="toolkitPlayButton"></div>
+                </div>
+            </div>
+
+            <!-- Features List (Accordion) -->
+            <div class="toolkit-features" id="toolkitFeatures">
+                <div class="toolkit-item" data-video="images/notebook.mp4" data-poster="images/notebook.jpg">
+                    <button class="toolkit-item-title" aria-expanded="false">
+                        <span>160 Pages Notebook</span>
+                    </button>
+                    <div class="toolkit-body">
+                        <div class="toolkit-item-description">
+                            Swap out any regular class notebook with Supernotes, so your child gets introduced to 
+                            career planning essentials and explores career options across various fields while taking notes.
+                        </div>
+                        <div class="toolkit-arrow-wrap"><img src="images/arrow-tilt.png" alt="arrow" class="toolkit-arrow"></div>
+                    </div>
+                    
+                </div>
+
+                <div class="toolkit-item" data-video="images/ebook.mp4" data-poster="images/ebook.jpg">
+                    <button class="toolkit-item-title" aria-expanded="false">
+                        <span>Gain Insights E-Book</span>
+                    </button>
+                    <div class="toolkit-body">
+                        <div class="toolkit-item-description">
+                            Parents and students can read the E-Book for valuable insights on career choices, study abroad options, and essential steps to guide students towards the right path.
+                        </div>
+                        <div class="toolkit-arrow-wrap"><img src="images/arrow-tilt.png" alt="arrow" class="toolkit-arrow"></div>
+                    </div>
+                    
+                </div>
+
+                <div class="toolkit-item" data-video="images/mentor.mp4" data-poster="images/mentor.jpg">
+                    <button class="toolkit-item-title" aria-expanded="false">
+                        <span>Connect with a Mentor</span>
+                    </button>
+                    <div class="toolkit-body">
+                        <div class="toolkit-item-description">
+                            Tap or Scan to connect with an expert mentor who will walk you through career planning tools, profile building activities, and strategies to boost admission chances at reputed universities.
+                        </div>
+                        <div class="toolkit-arrow-wrap"><img src="images/arrow-tilt.png" alt="arrow" class="toolkit-arrow"></div>
+                    </div>
+                    
+                </div>
+
+                <div class="toolkit-item" data-video="images/tap.mp4" data-poster="images/tap.jpg">
+                    <button class="toolkit-item-title" aria-expanded="false">
+                        <span>Access to Resources</span>
+                    </button>
+                    <div class="toolkit-body">
+                        <div class="toolkit-item-description">
+                            Swap out any regular class notebook with Supernotes, so your child gets introduced to career planning essentials and explores career options across various fields while taking notes.
+                        </div>
+                        <div class="toolkit-arrow-wrap"><img src="images/arrow-tilt.png" alt="arrow" class="toolkit-arrow"></div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile-only video -->
+        <div class="toolkit-mobile-video" style="display: none;">
+            <video id="mobileToolkitVideo" controls src="https://packages.supernotes.info/wp-content/uploads/2026/01/V4-Book-Promo.mp4" poster="images/promo.jpg"></video>
+            <div class="play-button" id="mobilePlayButton"></div>
+        </div>
+
+        <div class="toolkit-cta">
+            <a class="cta-btn openPopup" href="javascript:void(0)">
+                Get Supernotes Complimentary
+                <img src="images/arrow.png" alt="arrow" class="btn-arrow">
+            </a>
+        </div>
+    </section>
+
+
+
+
+
+   
+
+    <!-- Explore Digital Section -->
+    <section id="explore" class="explore-section">
+        <div class="toolkit-header">
+            <div class="toolkit-badge">
+                <img src="images/resources.png">
+            </div>
+            <h2 class="toolkit-title">
+                Explore digital <span class="orange-text">Resources</span>
+            </h2>
+            <p class="toolkit-subtitle">
+                Curated resources that build career awareness, academic confidence, and essential life skills.
+            </p>
+        </div>
+
+        <!-- <h2 class="section-title">Explore digital <span class="highlight">content</span></h2> -->
+        
+        <div class="resources-grid">
+            <div class="resource-card">
+                <img class="resource-image" src="images/r1.png" alt="Career 101">
+                <div class="resource-content">                   
+                    <h3 class="resource-title">Career 101</h3>
+                    <p class="resource-desc">Guided conversations for smarter career choices.</p>
+                    <a class="resource-btn" href="https://simplebooklet.com/101careertalks#page=1" target="_blank" rel="noopener">Read now</a>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <img class="resource-image" src="images/r2.png" alt="AI 101">
+                <div class="resource-content">                    
+                    <h3 class="resource-title">AI 101</h3>
+                    <p class="resource-desc">An easy introduction to AI and future-ready skills.</p>
+                    <a class="resource-btn" href="https://nas.io/pursue/challenges/ai-101-first-ai-playbook-for-teens" target="_blank" rel="noopener">Read now</a>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <img class="resource-image" src="images/r3.png" alt="School Success 101">
+                <div class="resource-content">                    
+                    <h3 class="resource-title">School Success 101</h3>
+                    <p class="resource-desc">Skills and habits for academic confidence.</p>
+                    <a class="resource-btn" href="https://nas.io/pursue/challenges/school-success-101" target="_blank" rel="noopener">Read now</a>
+                </div>
+            </div>
+            
+            <div class="resource-card">
+                <img class="resource-image" src="images/r4.png" alt="Money Talks - 101">
+                <div class="resource-content">                  
+                    <h3 class="resource-title">Money Talks - 101</h3>
+                    <p class="resource-desc">Building smart money habits early.</p>
+                    <a class="resource-btn" href="https://nas.io/pursue/challenges/money-talks-101" target="_blank" rel="noopener">Read now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- Our Services Section -->
+    <section id="services" class="services-section">
+        <div class="toolkit-header">
+            <div class="toolkit-badge">
+                <img src="images/services.png" alt="services badge">
+            </div>
+            <h2 class="toolkit-title">
+                Our <span class="orange-text">Services</span>
+            </h2>
+            <p class="services-subtitle">
+                Used by students for structured career planning & profile building
+            </p>
+        </div>
+
+        <div class="services-container">
+            
+            <div class="service-list">
+                <div class="service-item">
+                    <div class="service-icon"><img src="images/s1.png" alt="icon 1" style="width: auto; height: 11rem;"></div>
+                    <div class="service-text">
+                        <h4>Career Assessments</h4>
+                        <p>Explore the incredible advantages of enrolling in our courses and enhancing</p>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-icon"><img src="images/s2.png" alt="icon 2" style="width: auto; height: 11rem;"></div>
+                    <div class="service-text">
+                        <h4>4 Step Career Planning</h4>
+                        <p>Structured steps to help students plan and track career goals.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="service-center">
+                <img src="images/sc.png" alt="Services image">
+            </div>
+
+            <div class="service-list">
+                <div class="service-item">
+                    <div class="service-icon"><img src="images/s3.png" alt="icon 3" style="width: auto; height: 11rem;"></div>
+                    <div class="service-text">
+                        <h4>Profile Building Program</h4>
+                        <p>Explore the advantages of enrolling in our profile building program.</p>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-icon"><img src="images/s4.png" alt="icon 4" style="width: auto; height: 11rem;"></div>
+                    <div class="service-text">
+                        <h4>Virtual Internships</h4>
+                        <p>Hands-on experience and projects to build real-world skills.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="services-cta">
+            <a class="cta-btn" href="https://simplebooklet.com/ourservices3" target="_blank" rel="noopener">
+                Download Program Flyers
+                <img src="images/arrow.png" alt="arrow" class="btn-arrow">
+            </a>
+        </div>
+    </section>
+
+    
+
+    <!-- Choosing the Wrong Career Section -->
+    <section class="choosing-section">
+
+        <div class="choosing-container">
+            <div class="choosing-left">
+                <div class="toolkit-header choosing-header" style="text-align: start; line-height: normal;">
+                    <h2 class="toolkit-title">Choosing the wrong <br><span class="orange-text">Career is costly</span></h2>
+                    <p class="">Many parents worry about their child's future, but the lack of structured career planning can lead to:</p>
+                </div>
+                <img src="images/working.png" alt="student working" class="choosing-image">
+            </div>
+
+            <div class="choosing-right">
+                <div class="choosing-list">
+                    <div class="choosing-item">
+                        <div class="choosing-icon"><img src="images/c1.png" alt="icon"></div>
+                        <div class="choosing-text">
+                            <h4>Anxiety & Uncertainty</h4>
+                            <p>Not knowing how to help your child choose the right career.</p>
+                        </div>
+                    </div>
+
+                    <div class="choosing-item">
+                        <div class="choosing-icon"><img src="images/c2.png" alt="icon"></div>
+                        <div class="choosing-text">
+                            <h4>Wasted Time & Resources</h4>
+                            <p>Studying for a career that doesn't match their strengths.</p>
+                        </div>
+                    </div>
+
+                    <div class="choosing-item">
+                        <div class="choosing-icon"><img src="images/c3.png" alt="icon"></div>
+                        <div class="choosing-text">
+                            <h4>Limited Financial Growth</h4>
+                            <p>Choosing an outdated or low-demand field.</p>
+                        </div>
+                    </div>
+
+                    <div class="choosing-item">
+                        <div class="choosing-icon"><img src="images/c4.png" alt="icon"></div>
+                        <div class="choosing-text">
+                            <h4>Emotional Frustration</h4>
+                            <p>Being stuck in an unfulfilling career impacts confidence.</p>
+                        </div>
+                    </div>
+
+                    <div class="choosing-item">
+                        <div class="choosing-icon"><img src="images/c5.png" alt="icon"></div>
+                        <div class="choosing-text">
+                            <h4>A Lifetime of 'What Ifs'</h4>
+                            <p>Regret over missed opportunities and unexplored careers.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    
+
+    <!-- Testimonials Section (Horizontal Scroller) -->
+    <section class="testimonials-section">
+         <div class="toolkit-header">
+            <div class="toolkit-badge">
+                <img src="images/testimonial.png">
+            </div>
+            <h2 class="toolkit-title">
+                What parents say about <span class="orange-text">Supernotes</span>
+            </h2>
+            <p class="toolkit-subtitle">
+                Explore the incredible advantages of enrolling in our courses and enhancing your skills for the ultimate career success.
+            </p>
+        </div>
+        <div class="container">
+            
+
+            <div class="testimonials-track-wrap">
+                <div class="testimonials-track" id="testimonialsTrack">
+                    <div class="testimonial-card" data-color="#ffb59a">
+                        <div class="stars">★★★★★</div>
+                        <div class="testimonial-text">“This is exactly what students need—something practical,
+accessible, and age-appropriate. Supernotes
+has filled a big gap in early career awareness.”</div>
+                        <div class="testimonial-meta">
+                            <div class="testimonial-author">
+                                <div>
+                                    <div style="font-weight:700">Devika Jain</div>
+                                    <div style="color:#777; font-size:0.9rem">Career Mentor</div>
+                                </div>
+                            </div>
+                            <div class="author-logo">D</div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card" data-color="#bfa0ff">
+                        <div class="stars">★★★★★</div>
+                        <div class="testimonial-text">“As a school counselor, I recommend Supernotes to
+every parent. It helps start the right conversations at
+the right age”</div>
+                        <div class="testimonial-meta">
+                            <div class="testimonial-author">
+                                <div>
+                                    <div style="font-weight:700">Shreyas</div>
+                                    <div style="color:#777; font-size:0.9rem">School Counselor</div>
+                                </div>
+                            </div>
+                            <div class="author-logo">S</div>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card" data-color="#7ee3b3">
+                        <div class="stars">★★★★★</div>
+                        <div class="testimonial-text">“The walkthrough sessions made everything clear for me. I finally understood how to choose subjects, explore careers, and plan my next steps”</div>
+                        <div class="testimonial-meta">
+                            <div class="testimonial-author">
+                                <div>
+                                    <div style="font-weight:700">Preetam</div>
+                                    <div style="color:#777; font-size:0.9rem">Grade 9 Student</div>
+                                </div>
+                            </div>
+                            <div class="author-logo">M</div>
+                        </div>
+
+                   
+                    </div>
+                     <div class="testimonial-card" data-color="#ffd6a5">
+                        <div class="stars">★★★★★</div>
+                        <div class="testimonial-text">“As a parent, I felt relieved after the walkthrough sessions. They helped my child understand options early and taught us what to focus on in each grade”</div>
+                        <div class="testimonial-meta">
+                            <div class="testimonial-author">
+                                <div>
+                                    <div style="font-weight:700">Rohan Mehta</div>
+                                    <div style="color:#777; font-size:0.9rem">Parent</div>
+                                </div>
+                            </div>
+                            <div class="author-logo">S</div>
+                        </div>
+
+                </div>
+
+                <div class="testimonials-controls">
+                    <button id="testPrev" aria-label="Previous">‹</button>
+                    <button id="testNext" aria-label="Next">›</button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Contact / CTA 3-column Section -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <div class="contact-left">
+                <h2 class="contact-title">Get in <span class="orange-text">Touch</span></h2>
+                <p class="contact-sub">Unlock the full potential of your learning journey with Supernotes. Whether you need product details, help with your order, or guidance on choosing the right study resource.</p>
+                <a class="cta-btn contact-cta openPopup" href="javascript:void(0)">Get Supernotes Complimentary <img src="images/arrow.png" alt="arrow" class="btn-arrow"></a>
+            </div>
+
+            <a href="https://wa.link/r8jc8f" target="_blank" rel="noopener" class="contact-card-link">
+                <div class="contact-card">
+                    <img src="images/whatsapp.png" alt="icon" class="contact-icon">
+                    <h3>Connect with Mentors</h3>
+                    <p>Would you like a mentor callback or program details?</p>
+                    <div class="contact-phone">+91 9972140555</div>
+                </div>
+            </a>
+
+            <a href="https://wa.link/peq5rn" target="_blank" rel="noopener" class="contact-card-link">
+                    <div class="contact-card">
+                    <img src="images/whatsapp.png" alt="icon" class="contact-icon">
+                    <h3>Partner with Us</h3>
+                    <p>We collaborate with educators and mentors to make career planning accessible and affordable for every student.</p>
+                    <div class="contact-phone">+91 9972140555</div>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <style>
+        .contact-section{ padding:60px 80px; background:#f3f8ff; }
+        .contact-container{ max-width:1200px; margin:24px auto 0; display:grid; grid-template-columns: 2fr 1fr 1fr; gap:28px; align-items:stretch; }
+        .contact-left{ display:flex; flex-direction:column; justify-content:center; padding:26px 18px; }
+        .contact-title{ font-size:48px; margin:0px; }
+        .contact-title .orange-text{ color:#ff6b35; font-style:italic; display:inline-block; }
+        .contact-sub{ color:#606a75; margin-bottom:20px; max-width:420px; }
+        .contact-cta{ width:fit-content; }
+
+        .contact-card-link{ text-decoration:none; color:inherit; display:block; transition: transform 0.3s ease; height:100%; }
+        .contact-card-link:hover{ transform: translateY(-6px); }
+        .contact-card{ background:white; border-radius:16px; padding:34px; box-shadow: 0 24px 60px rgba(15,23,42,0.08); text-align:center; display:flex; flex-direction:column; min-height:240px; transition: box-shadow 0.3s ease; height:100%; }
+        .contact-card-link:hover .contact-card{ box-shadow: 0 32px 80px rgba(15,23,42,0.12); }
+        .contact-icon{ width:auto; height:6.5rem; border-radius:50%; object-fit:cover; display:block; margin:0 auto; }
+        /* ensure phone number sits at the bottom and is centered horizontally */
+        .contact-phone{ margin-top:auto; width:100%; text-align:center; }
+
+        /* ensure link wrappers expand so cards share the same row height */
+        .contact-container > a.contact-card-link { display:block; height:100%; }
+        .contact-card h3{ margin:12px 0 6px 0; font-size:20px }
+        .contact-card p{ color:#6b7280; font-size:14px; margin:0 0 10px; }
+        .contact-phone{ font-weight:800; margin-top:auto; }
+
+        @media (max-width: 900px){ .contact-container{ grid-template-columns: 1fr; } .contact-title{ font-size:32px } }
+    </style>
+        </style>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div class="footer-col footer-brand">
+                <div class="footer-logo">
+                    <img src="images/logo.png" alt="Supernotes logo" style="height:36px">
+                </div>
+                <p class="footer-desc">At Pursue Academia, we are on a mission to make career planning structured, accessible, and stress free for students and parents.</p>
+                <div class="social-icons">
+                    <a class="social-link" href="https://www.facebook.com/profile.php?id=100093386288604" aria-label="facebook"><img src="images/fb.png" alt="facebook" style="width: auto;height: 5rem;"></a>
+                    <a class="social-link" href="https://www.instagram.com/my_supernotes" aria-label="instagram"><img src="images/ig.png" alt="instagram" style="width: auto;height: 5rem;"></a>
+                    <!-- <a class="social-link" href="#" aria-label="youtube"><img src="images/yt.png" alt="youtube" style="width: auto;height: 5rem;"></a> -->
+                </div>
+            </div>
+
+            <div class="footer-col">
+                <h4>Navigate</h4>
+                <ul class="footer-list">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#courses">Courses</a></li>
+                    <li><a href="#services">Service</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <!-- <h4>Company</h4>
+                <ul class="footer-list">
+                    <li><a href="#testimonial">Testimonial</a></li>
+                    <li><a href="#contact">Contact us</a></li>
+                </ul> -->
+            </div>
+
+            <div class="footer-col">
+                <!-- <h4>Utility</h4>
+                <ul class="footer-list">
+                    <li><a href="#terms">Terms and Conditions</a></li>
+                    <li><a href="#privacy">Privacy Policy</a></li>
+                </ul> -->
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="copyright">Copyrights @ Supernotes</div>
+        </div>
+
+        <style>
+            .footer-desc, .footer-list{text-align: left;}
+            .footer-col { justify-items: left}
+            .site-footer{ background: #ffffff; padding: 48px 80px 24px; color:#333 }
+            .footer-top{ display:grid; grid-template-columns: 1.8fr 1fr 1fr 1fr; gap:28px; max-width:1200px; margin:0 auto 18px; align-items:start }
+            .footer-col h4{ margin:0 0 12px; font-size:18px }
+            .footer-desc{ color:#6b7280; max-width:360px; margin:8px 0 18px }
+            .social-icons{ display:flex; gap:14px }
+            .social-link{ width:56px; height:56px; border-radius:50%; background:white; display:inline-flex; align-items:center; justify-content:center; text-decoration:none }
+            .footer-list{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px }
+            .footer-list a{ color:#6b7280; text-decoration:none }
+            .footer-bottom{ border-top:1px solid rgba(0,0,0,0.06); padding-top:18px; text-align:center }
+            .copyright{ color:#9aa0a6 }
+
+            @media (max-width: 900px){
+                .footer-top{ grid-template-columns: 1fr; text-align:left }
+                .footer-desc{ max-width:100% }
+                .site-footer{ padding:28px 20px }
+            }
+        </style>
+    </footer>
+    <script>
+        (function(){
+            const video = document.getElementById('toolkitVideo');
+            const playBtn = document.getElementById('toolkitPlayButton');
+            const items = document.querySelectorAll('#toolkitFeatures .toolkit-item');
+            const isMobile = window.innerWidth <= 768;
+
+            function closeAll(){
+                items.forEach(it=>{
+                    it.classList.remove('active');
+                    const btn = it.querySelector('.toolkit-item-title');
+                    if(btn) btn.setAttribute('aria-expanded','false');
+                });
+            }
+
+            // On mobile, keep all items expanded
+            if(isMobile){
+                items.forEach(it=>{
+                    it.classList.add('active');
+                    const btn = it.querySelector('.toolkit-item-title');
+                    if(btn) btn.setAttribute('aria-expanded','true');
+                    
+                    // Handle play button for each mobile video
+                    const itemVideo = it.querySelector('.toolkit-item-video video');
+                    const itemPlayBtn = it.querySelector('.toolkit-item-video .play-button');
+                    
+                    if(itemPlayBtn && itemVideo){
+                        itemPlayBtn.addEventListener('click', ()=>{
+                            if(itemVideo.paused) itemVideo.play(); else itemVideo.pause();
+                        });
+                        
+                        itemVideo.addEventListener('play', ()=>{ itemPlayBtn.style.display='none'; });
+                        itemVideo.addEventListener('pause', ()=>{ itemPlayBtn.style.display='flex'; });
+                    }
+                });
+            } else {
+                // Desktop accordion behavior
+                items.forEach(it=>{
+                    const btn = it.querySelector('.toolkit-item-title');
+                    btn.addEventListener('click', ()=>{
+                        const isActive = it.classList.contains('active');
+                        closeAll();
+                        if(!isActive){
+                            it.classList.add('active');
+                            btn.setAttribute('aria-expanded','true');
+                            // Desktop now uses a single promo video — do not swap sources here.
+                        }
+                    });
+                });
+
+                // Play overlay handling
+                if(playBtn){
+                    playBtn.addEventListener('click', ()=>{
+                        if(video.paused) video.play(); else video.pause();
+                    });
+                }
+
+                video.addEventListener('play', ()=>{ if(playBtn) playBtn.style.display='none'; });
+                video.addEventListener('pause', ()=>{ if(playBtn) playBtn.style.display='flex'; });
+
+                // initialize first item active (open by default)
+                if(items.length>0){
+                    const first = items[0];
+                    const btn = first.querySelector('.toolkit-item-title');
+                    first.classList.add('active');
+                    if(btn) btn.setAttribute('aria-expanded','true');
+                    // Keep the single promo video unchanged for desktop
+                }
+            }
+        })();
+    </script>
+
+    <script>
+        // Testimonials scroller controls
+        (function(){
+            const track = document.getElementById('testimonialsTrack');
+            const prev = document.getElementById('testPrev');
+            const next = document.getElementById('testNext');
+            if(!track) return;
+
+            const cardWidth = () => track.querySelector('.testimonial-card')?.getBoundingClientRect().width || 560;
+
+            next.addEventListener('click', ()=>{
+                track.scrollBy({ left: Math.round(cardWidth()+30), behavior: 'smooth' });
+            });
+
+            prev.addEventListener('click', ()=>{
+                track.scrollBy({ left: -Math.round(cardWidth()+30), behavior: 'smooth' });
+            });
+
+            // allow arrow keys when focus is inside track
+            track.tabIndex = 0;
+            track.addEventListener('keydown', (e)=>{
+                if(e.key === 'ArrowRight') next.click();
+                if(e.key === 'ArrowLeft') prev.click();
+            });
+
+            // set per-card author logo colors (use data-color or generate from name)
+            const stringToHsl = (str)=>{
+                let hash = 0; for(let i=0;i<str.length;i++) hash = str.charCodeAt(i) + ((hash<<5)-hash);
+                const h = Math.abs(hash) % 360;
+                return `hsl(${h} 70% 45%)`;
+            };
+
+            track.querySelectorAll('.testimonial-card').forEach(card=>{
+                const logo = card.querySelector('.author-logo');
+                if(!logo) return;
+                const color = card.dataset.color;
+                if(color) logo.style.background = color;
+                else {
+                    const nameEl = card.querySelector('.testimonial-author div div');
+                    const name = nameEl ? nameEl.textContent.trim() : '';
+                    logo.style.background = stringToHsl(name || 'anon');
+                }
+                // ensure initials match first letter of name if empty
+                if(!logo.textContent.trim()){
+                    const nameEl = card.querySelector('.testimonial-author div div');
+                    const name = nameEl ? nameEl.textContent.trim() : '';
+                    logo.textContent = (name && name[0]) ? name[0].toUpperCase() : '?';
+                }
+            });
+        })();
+    </script>
+    <script>
+        // Mobile toolkit video play button
+        (function(){
+            const mobileVideo = document.getElementById('mobileToolkitVideo');
+            const mobilePlayBtn = document.getElementById('mobilePlayButton');
+            
+            if(mobilePlayBtn && mobileVideo){
+                mobilePlayBtn.addEventListener('click', ()=>{
+                    if(mobileVideo.paused) mobileVideo.play(); else mobileVideo.pause();
+                });
+                
+                mobileVideo.addEventListener('play', ()=>{ mobilePlayBtn.style.display='none'; });
+                mobileVideo.addEventListener('pause', ()=>{ mobilePlayBtn.style.display='flex'; });
+            }
+        })();
+    </script>
+    <script>
+        // Navbar behaviors: Home -> reload without hash; Courses/Services -> scroll then remove hash
+        (function(){
+            const homeLink = document.querySelector('nav a[href="#home"]');
+            const exploreLink = document.querySelector('nav a[href="#explore"]');
+            const servicesLink = document.querySelector('nav a[href="#services"]');
+
+            if(homeLink){
+                homeLink.addEventListener('click', function(e){
+                    e.preventDefault();
+                    // navigate to the same page without the hash so reload/visit goes to top
+                    location.replace(location.pathname + location.search);
+                });
+            }
+
+            [exploreLink, servicesLink].forEach(link=>{
+                if(!link) return;
+                link.addEventListener('click', function(e){
+                    e.preventDefault();
+                    const id = this.getAttribute('href')?.replace('#','');
+                    const target = id ? document.getElementById(id) : null;
+                    if(target){
+                        // smooth scroll and focus for accessibility
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        target.setAttribute('tabindex','-1');
+                        // focus without changing scroll
+                        try{ target.focus({ preventScroll: true }); }catch(err){ /* ignore */ }
+                    }
+                    // remove hash from URL so reload doesn't preserve it
+                    history.replaceState(null, '', location.pathname + location.search);
+                });
+            });
+        })();
+    </script>
+    <script>
+        // Mobile menu toggle
+        (function(){
+            const btn = document.querySelector('.menu-button');
+            const nav = document.getElementById('main-nav');
+            if(!btn || !nav) return;
+
+            function setOpen(open){
+                btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                if(open){
+                    nav.classList.remove('mobile-hidden');
+                    nav.classList.add('mobile-open');
+                } else {
+                    nav.classList.remove('mobile-open');
+                    nav.classList.add('mobile-hidden');
+                }
+            }
+
+            btn.addEventListener('click', function(e){
+                e.stopPropagation();
+                const expanded = btn.getAttribute('aria-expanded') === 'true';
+                setOpen(!expanded);
+            });
+
+            // close when clicking outside
+            document.addEventListener('click', function(e){
+                if(!nav.classList.contains('mobile-open')) return;
+                if(!nav.contains(e.target) && !btn.contains(e.target)) setOpen(false);
+            });
+
+            // respond to resize
+            window.addEventListener('resize', function(){
+                if(window.innerWidth > 768){
+                    nav.classList.remove('mobile-hidden','mobile-open');
+                    btn.style.display = 'none';
+                } else {
+                    if(!nav.classList.contains('mobile-open')) nav.classList.add('mobile-hidden');
+                    btn.style.display = '';
+                }
+            });
+
+            // initial state
+            if(window.innerWidth <= 768){
+                btn.style.display = '';
+                nav.classList.add('mobile-hidden');
+                btn.setAttribute('aria-expanded','false');
+            } else {
+                btn.style.display = 'none';
+                nav.classList.remove('mobile-hidden','mobile-open');
+            }
+        })();
+    </script>
+    <script>
+        // On page reload, clear any fragment identifier and reset scroll to top
+        (function(){
+            // prefer Navigation Timing Level 2
+            const isReload = (()=>{
+                try{
+                    const entries = performance.getEntriesByType && performance.getEntriesByType('navigation');
+                    if(entries && entries.length) return entries[0].type === 'reload';
+                    return performance.navigation && performance.navigation.type === 1;
+                }catch(e){ return false; }
+            })();
+
+            if(isReload && location.hash){
+                // remove hash without creating a new history entry
+                history.replaceState(null, '', location.pathname + location.search);
+                // ensure viewport is at top immediately
+                try{ window.scrollTo(0,0); }catch(e){ window.scrollTo(0,0); }
+                // some browsers restore scroll after load; repeat shortly after to override
+                setTimeout(function(){ try{ window.scrollTo(0,0); }catch(e){} }, 50);
+            }
+        })();
+    </script>
+
+    <!-- Popup Form HTML -->
+    <div id="customPopupOverlay" aria-hidden="true">
+      <div id="customPopupBox" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+        <button id="closePopup" aria-label="Close popup">&times;</button>
+
+        <h2 id="popupTitle" style="text-align:center;margin:0 0 12px;font-size:22px;">Fill Your Details</h2>
+
+        <form id="studentForm" class="customForm" autocomplete="on">
+          <label for="name">Name <span style="color:#ff0000">*</span></label>
+          <input id="name" type="text" placeholder="Enter your full name" required>
+
+          <label for="whatsapp">WhatsApp No. <span style="color:#ff0000">*</span></label>
+          <input id="whatsapp" type="text" maxlength="10" placeholder="Enter 10-digit number" required>
+
+          <label for="email">Email <span style="color:#ff0000">*</span></label>
+          <input id="email" type="email" placeholder="Enter your email address" required>
+
+          <label for="refcode">Reference Code</label>
+          <input id="refcode" type="text" placeholder="Enter reference code (optional)">
+
+          <h3 style="margin-top:14px;">Student Information</h3>
+          <label for="studentName">Student Name <span style="color:#ff0000">*</span></label>
+          <input id="studentName" type="text" placeholder="Enter student's full name" required>
+
+          <label for="studentGrade">Grade/Class <span style="color:#ff0000">*</span></label>
+          <input id="studentGrade" type="text" placeholder="Enter student's grade/class" required>
+
+          <h3 style="margin-top:14px;">Address</h3>
+          <label for="street">Street Address <span style="color:#ff0000">*</span></label>
+          <input id="street" type="text" placeholder="Enter your street address" required>
+
+          <label for="pincode">Pincode <span style="color:#ff0000">*</span></label>
+          <input id="pincode" type="text" maxlength="6" placeholder="Enter 6-digit pincode" required>
+          <div id="pincodeError" style="color:red;font-size:12px;margin-top:4px;"></div>
+
+          <label for="city">City <span style="color:#ff0000">*</span></label>
+          <input id="city" type="text" placeholder="Auto-filled from pincode" readonly required>
+
+          <label for="state">State <span style="color:#ff0000">*</span></label>
+          <input id="state" type="text" placeholder="Auto-filled from pincode" readonly required>
+
+          <label for="country">Country <span style="color:#ff0000">*</span></label>
+          <input id="country" type="text" placeholder="Auto-filled from pincode" readonly required>
+
+          <button type="submit">Submit</button>
+        </form>
+
+      </div>
+    </div>
+
+    <div id="loader">Loading... please wait</div>
+
+    <script>
+    /* POPUP FORM SCRIPT */
+    (function(){
+      // defensive: don't run twice
+      if (window.__customPopupInit) return;
+      window.__customPopupInit = true;
+
+      document.addEventListener('DOMContentLoaded', function(){
+
+        const overlay = document.getElementById('customPopupOverlay');
+        const box = document.getElementById('customPopupBox');
+        const closeBtn = document.getElementById('closePopup');
+        const loader = document.getElementById('loader');
+
+        if (!overlay || !box) {
+          console.warn('Popup: missing #customPopupOverlay or #customPopupBox');
+          return;
+        }
+
+        // open popup helper
+        function openPopup(){
+          overlay.style.display = 'flex';
+          overlay.setAttribute('aria-hidden','false');
+          document.body.style.overflow = 'hidden';
+          if (loader) loader.style.display = 'none';
+          // focus first input for accessibility
+          const firstInput = box.querySelector('input, button, textarea, select');
+          if (firstInput) firstInput.focus();
+          console.info('Popup opened');
+        }
+
+        // close helper
+        function closePopup(){
+          overlay.style.display = 'none';
+          overlay.setAttribute('aria-hidden','true');
+          document.body.style.overflow = '';
+          console.info('Popup closed');
+        }
+
+        // safe attach: remove hrefs on openPopup anchors to avoid navigation
+        document.querySelectorAll('.openPopup a').forEach(a => a.removeAttribute('href'));
+
+        // attach unified listener (works for existing and later-inserted elements)
+        function onTrigger(e){
+          // support both click and touchend
+          try { e.preventDefault(); } catch(e){}
+          openPopup();
+        }
+
+        // attach to existing triggers
+        const triggers = Array.from(document.querySelectorAll('.openPopup'));
+        if (triggers.length === 0) {
+          console.info('Popup: no .openPopup triggers found (will still work if triggered programmatically).');
+        } else {
+          triggers.forEach(t => {
+            // ensure pointer-events allowed
+            t.style.pointerEvents = 'auto';
+            // avoid double-listening by using a symbol property
+            if (!t.__popupHandlerAttached) {
+              t.addEventListener('click', onTrigger);
+              t.addEventListener('touchend', onTrigger, {passive:false});
+              t.__popupHandlerAttached = true;
+            }
+          });
+        }
+
+        // close interactions
+        if (closeBtn) closeBtn.addEventListener('click', closePopup);
+        overlay.addEventListener('click', function(e){
+          if (e.target === overlay) closePopup();
+        });
+        // prevent clicks inside box from bubbling
+        box.addEventListener('click', function(e){ e.stopPropagation(); });
+
+        // ESC key
+        document.addEventListener('keydown', function(e){
+          if (e.key === 'Escape' && overlay.style.display === 'flex') closePopup();
+        });
+
+        // REAL-TIME FORM VALIDATIONS
+        const nameInput = document.getElementById('name');
+        const whatsappInput = document.getElementById('whatsapp');
+        const emailInput = document.getElementById('email');
+        const studentNameInput = document.getElementById('studentName');
+        const pincodeInput = document.getElementById('pincode');
+        const cityInput = document.getElementById('city');
+        const stateInput = document.getElementById('state');
+        const countryInput = document.getElementById('country');
+        const pincodeError = document.getElementById('pincodeError');
+
+        // Helper to show error message
+        function showError(input, message) {
+          let errorDiv = input.nextElementSibling;
+          if (!errorDiv || !errorDiv.classList.contains('validation-error')) {
+            errorDiv = document.createElement('div');
+            errorDiv.className = 'validation-error';
+            errorDiv.style.cssText = 'color:red;font-size:12px;margin-top:4px;';
+            input.parentNode.insertBefore(errorDiv, input.nextSibling);
+          }
+          errorDiv.textContent = message;
+          input.style.borderColor = message ? '#ff0000' : '';
+        }
+
+        function clearError(input) {
+          const errorDiv = input.nextElementSibling;
+          if (errorDiv && errorDiv.classList.contains('validation-error')) {
+            errorDiv.textContent = '';
+          }
+          input.style.borderColor = '';
+        }
+
+        // Name validation: no numbers
+        if (nameInput) {
+          nameInput.addEventListener('input', function(){
+            const value = this.value;
+            if (/\d/.test(value)) {
+              showError(this, 'Name should not contain numbers');
+            } else if (value.trim().length > 0 && value.trim().length < 2) {
+              showError(this, 'Name must be at least 2 characters');
+            } else {
+              clearError(this);
+            }
+          });
+        }
+
+        // Student name validation: no numbers
+        if (studentNameInput) {
+          studentNameInput.addEventListener('input', function(){
+            const value = this.value;
+            if (/\d/.test(value)) {
+              showError(this, 'Name should not contain numbers');
+            } else if (value.trim().length > 0 && value.trim().length < 2) {
+              showError(this, 'Name must be at least 2 characters');
+            } else {
+              clearError(this);
+            }
+          });
+        }
+
+        // WhatsApp validation: numbers only, 10 digits
+        if (whatsappInput) {
+          whatsappInput.addEventListener('input', function(){
+            // Remove non-digits
+            this.value = this.value.replace(/\D/g, '');
+            const value = this.value;
+            
+            if (value.length > 0 && value.length < 10) {
+              showError(this, 'Phone number must be 10 digits');
+            } else if (value.length === 10 && !/^[6-9]\d{9}$/.test(value)) {
+              showError(this, 'Please enter a valid Indian mobile number');
+            } else if (value.length === 10) {
+              clearError(this);
+            } else {
+              clearError(this);
+            }
+          });
+        }
+
+        // Email validation: real-time format check
+        if (emailInput) {
+          emailInput.addEventListener('input', function(){
+            const value = this.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (value.length > 0 && !emailRegex.test(value)) {
+              showError(this, 'Please enter a valid email address');
+            } else {
+              clearError(this);
+            }
+          });
+        }
+
+        // Pincode validation: numbers only, 6 digits
+        if (pincodeInput) {
+          pincodeInput.addEventListener('input', function(){
+            // Remove non-digits
+            this.value = this.value.replace(/\D/g, '');
+          });
+        }
+
+        // PINCODE autofill (if element exists)
+
+        if (pincodeInput) {
+          pincodeInput.addEventListener('blur', async function(){
+            const pin = (pincodeInput.value || '').trim();
+            const regex = /^[1-9][0-9]{5}$/;
+            if (!regex.test(pin)) {
+              if (pincodeError) pincodeError.textContent = 'Please enter a valid 6-digit Indian pincode.';
+              if (cityInput) cityInput.value=''; if (stateInput) stateInput.value=''; if (countryInput) countryInput.value='';
+              return;
+            }
+            if (pincodeError) pincodeError.textContent = 'Checking...';
+            try {
+              const res = await fetch('https://api.postalpincode.in/pincode/' + encodeURIComponent(pin));
+              const data = await res.json();
+              if (!data || !data[0] || data[0].Status !== 'Success') {
+                if (pincodeError) pincodeError.textContent = 'Please check the pincode and try again.';
+                return;
+              }
+              const po = data[0].PostOffice && data[0].PostOffice[0];
+              if (po) {
+                if (cityInput) cityInput.value = po.District || '';
+                if (stateInput) stateInput.value = po.State || '';
+                if (countryInput) countryInput.value = po.Country || '';
+                if (pincodeError) pincodeError.textContent = '';
+              } else {
+                if (pincodeError) pincodeError.textContent = 'No post office data found.';
+              }
+            } catch(err){
+              if (pincodeError) pincodeError.textContent = 'Error validating pincode. Try again.';
+            }
+          });
+        }
+
+                // Form submit handler with Shiprocket + Google Sheets integration
+                const form = document.getElementById('studentForm');
+                if (form) {
+                    form.addEventListener('submit', async function(e){
+                        e.preventDefault();
+                        console.log('FORM SUBMITTED — Processing data');
+
+                        // Validate required fields
+                        const required = ['name','email','whatsapp','street','city','state','pincode','studentName','studentGrade'];
+                        for (const id of required){
+                            const el = document.getElementById(id);
+                            if (!el || !el.value || !el.value.trim()) {
+                                alert('Please fill all mandatory fields.');
+                                return;
+                            }
+                        }
+
+                        // Show loader
+                        if (loader) { loader.style.display = 'flex'; }
+
+                        // Collect form field values
+                        const name = document.getElementById('name')?.value.trim() || '';
+                        const phone = document.getElementById('whatsapp')?.value.trim() || '';
+                        const email = document.getElementById('email')?.value.trim() || '';
+                        const refcode = document.getElementById('refcode')?.value.trim() || '';
+                        const street = document.getElementById('street')?.value.trim() || '';
+                        const city = document.getElementById('city')?.value.trim() || '';
+                        const state = document.getElementById('state')?.value.trim() || '';
+                        const pincode = document.getElementById('pincode')?.value.trim() || '';
+                        const country = document.getElementById('country')?.value.trim() || '';
+                        const studentName = document.getElementById('studentName')?.value.trim() || '';
+                        const studentGrade = document.getElementById('studentGrade')?.value.trim() || '';
+
+                        // Prepare Shiprocket payload
+                        const orderPayload = {
+                            order_id: 'REG' + Date.now(),
+                            order_date: new Date().toISOString(),
+                            pickup_location: 'home-1',
+
+                            billing_customer_name: name,
+                            billing_last_name: '',
+                            billing_address: street,
+                            billing_address_2: '',
+                            billing_city: city,
+                            billing_pincode: pincode,
+                            billing_state: state,
+                            billing_country: country,
+                            billing_email: email,
+                            billing_phone: phone,
+
+                            shipping_is_billing: true,
+
+                            order_items: [
+                                {
+                                    name: 'Career Planning Toolkit',
+                                    sku: 'CPT001',
+                                    units: 1,
+                                    selling_price: 0,
+                                    discount: 0,
+                                    tax: 0,
+                                    hsn: ''
+                                }
+                            ],
+
+                            payment_method: 'prepaid',
+                            sub_total: 0,
+                            length: 14.8,
+                            breadth: 2.5,
+                            height: 21,
+                            weight: 0.3
+                        };
+
+                        console.log('Sending payload:', orderPayload);
+
+                        // 1) Submit to Shiprocket backend
+                        fetch('https://supernotes.onrender.com/api/shiprocket/create', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(orderPayload)
+                        })
+                        .then(async (res) => {
+                            let data = {};
+                            try { data = await res.json(); } catch (e) {}
+                            console.log('Shiprocket API Response:', data);
+                        })
+                        .catch(err => console.error('Shiprocket Error:', err));
+
+                        // 2) Submit to Google Sheets
+                        const sheetData = {
+                            name,
+                            phone,
+                            email,
+                            refcode,
+                            street,
+                            pincode,
+                            city,
+                            state,
+                            country,
+                            studentName,
+                            studentGrade,
+                            lpname: 'Swetha Supernotes'
+                        };
+
+                        fetch('https://script.google.com/macros/s/AKfycbzw24YUBlv8LoZYsbaP0IGfYfcgdoEdvcwvtxcpo5vnWOPKlQB0noIQSg62GxDJ__MC/exec', {
+                            method: 'POST',
+                            mode: 'no-cors',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(sheetData)
+                        });
+
+                        // 3) Send notification email via deployed API
+                        console.log('Starting email API call...');
+                        try {
+                            const emailPayload = {
+                                to: 'Mtgrshvt470@gmail.com',
+                                name,
+                                phone,
+                                email,
+                                refcode,
+                                studentName,
+                                studentGrade,
+                                street,
+                                city,
+                                state,
+                                pincode,
+                                country,
+                                message: `New Toolkit request from ${name} (${email || 'no email'}, ${phone}). Student: ${studentName} (Grade ${studentGrade}). Refcode: ${refcode}`
+                            };
+
+                            console.log('Email payload:', emailPayload);
+
+                            const emailResponse = await fetch('https://supernotes.onrender.com/api/customers/send_partner', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify(emailPayload)
+                            });
+
+                            console.log('Email API response status:', emailResponse.status);
+                            const emailResult = await emailResponse.json();
+                            console.log('Email API result:', emailResult);
+                        } catch(err){
+                            console.error('Email send error:', err);
+                        }
+
+                        // Redirect after 2 seconds to ensure API call completes
+                        setTimeout(function(){
+                            form.reset();
+                            if (loader) loader.style.display = 'none';
+                            closePopup();
+                            window.location.href = 'https://www.supernotes.info/';
+                        }, 1000);
+                    });
+                }
+
+                // expose openPopup to window for manual triggers (safe)
+                window.openCustomPopup = openPopup;
+                window.closeCustomPopup = closePopup;
+
+                console.info('Custom popup initialized.');
+            });
+        })();
+        </script>
+
+        
+
+</body>
+</html>
